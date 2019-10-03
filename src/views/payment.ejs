@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='//fonts.googleapis.com/css?family=Jura:400,300,500,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+    <link href="/styles/main.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+ </head>
+ <body class="home-page">
+    <div class="header">
+        <div class="logo">
+            <a class="logo">CompanyLogo</a>
+        </div>
+        <div class="signup-row">
+            <div class="sign-buttons">
+                <a class="signin" hidden id="signoutButton">SIGN-OUT</a>
+            </div>
+            <div class="welcome">
+                <a class="user" hidden id="user-name"></a>
+                <div id="user-pic"></div>
+             </div>
+        </div>
+    </div>
+    <section>
+            <h2><font color="white">Choose a Plan!</font></h2>
+            <div class="row">
+            <div class="column" style="background-color:#FDFDFE;">
+                <h2>One-time</h2>
+                <p>• 10 USD per query</p>
+                <h2>&nbsp;</h2>
+                <button id="checkout1" class="stripe-button-el" >
+                    <span style="display: block; min-height: 30px;">Pay with Card</span>
+                </button>
+                <div id="error1" style="color: #e25950;"></div>
+            </div>
+
+            <div class="column" style="background-color:#DCD5DF;">
+                <h2>Standard</h2>
+                <p>• 100 USD per 12 queries</p>
+                <h2>&nbsp;</h2>
+                
+                <button id="checkout2" class="stripe-button-el" >
+                    <span style="display: block; min-height: 30px;">Pay with Card</span>
+                </button>
+                <div id="error2" style="color: #e25950;"></div>
+            </div>
+            <div class="column" style="background-color:#FDFDFE;">
+                <h2>Premium</h2>
+                <p>• 900 USD per 120 queries</p>
+                <h2>&nbsp;</h2>
+
+                <button id="checkout3" class="stripe-button-el" >
+                    <span style="display: block; min-height: 30px;">Pay with Card</span>
+                </button>
+                <div id="error3" style="color: #e25950;"></div>
+            </div>
+        </div>        
+    </section>
+	<div class="footer">
+        <p>Trading CFDs and FX Options entail risk and could result in the loss of your capital.</p>
+        <p> &copy; 2019 - All rights reserved </p>
+     </div>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script>
+        var signOutButtonElement = document.getElementById('signoutButton');
+        var userPicElement = document.getElementById('user-pic');
+        var userNameElement = document.getElementById('user-name');
+        var CheckoutElement1 = document.getElementById('checkout1');
+        var elErrorElement1 = document.getElementById('error1');
+        var CheckoutElement2 = document.getElementById('checkout2');
+        var elErrorElement2 = document.getElementById('error2');
+        var CheckoutElement3 = document.getElementById('checkout3');
+        var elErrorElement3 = document.getElementById('error3');
+
+        addCheckoutMethod(CheckoutElement1, elErrorElement1, 
+               "<%= data_name %>", "One-time payment", <%= val_1 %>, "usd", "<%= api_key %>", 1);
+        addCheckoutMethod(CheckoutElement2, elErrorElement2, 
+               "<%= data_name %>", "Payment per 12 queries", <%= val_2 %>, "usd", "<%= api_key %>", 12);
+        addCheckoutMethod(CheckoutElement3, elErrorElement3, 
+               "<%= data_name %>", "Payment per 120 queries", <%= val_3 %>, "usd", "<%= api_key %>", 120);
+
+        signOutButtonElement.addEventListener('click', signOut);
+    
+        function authStateObserver(user) {
+            if (user) {
+                let profilePicUrl = getProfilePicUrl();
+                let userName = getUserName();
+                userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
+                userNameElement.textContent = userName;
+      
+                userNameElement.removeAttribute('hidden');
+                userPicElement.removeAttribute('hidden');
+                signOutButtonElement.removeAttribute('hidden');
+            } else {
+				window.location.href = "/";  
+            }
+        }		
+        initFirebaseAuth(authStateObserver);
+    </script>
+</body>
+</html>
+    

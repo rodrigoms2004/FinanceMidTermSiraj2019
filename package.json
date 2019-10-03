@@ -1,0 +1,30 @@
+{
+  "name": "MIdterm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/bin/index.js",
+  "scripts": {
+    "start": "node src/bin/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "firebase-admin": "^8.6.0",
+    "moment": "^2.24.0",
+    "querystring": "^0.2.0",
+    "stripe": "^7.9.1",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^4.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}

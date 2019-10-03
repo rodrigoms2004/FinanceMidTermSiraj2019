@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href='//fonts.googleapis.com/css?family=Jura:400,300,500,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+  <link href="/styles/main.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body class="login-page">
+	<div class="header">
+		<div class="logo">
+			<a class="logo">CompanyLogo</a>
+		</div>
+		<div class="signup-row">
+			<div class="sign-buttons">
+					<a class="signin" hidden id="signoutButton">SIGN-OUT</a>
+					<a class="signin" hidden id="signinButton">SIGN-IN</a>
+			</div>
+			<div class="welcome">
+				<a class="user" hidden id="user-name">Marco Alessandro de Campos</a>
+				<div id="user-pic" ></div>
+			</div>
+		</div>
+	</div>
+	<div hidden id="registerForm">
+		<div class="signin-form">
+			<h3>Register</h3>
+	    	<form>
+				<input type="text" id="emailInput" placeholder="E-mail"~required="">
+				<input type="password" id="passwordInput" placeholder="Password" required="">
+			</form>
+			<br />
+			<div class="buttons">
+				<a class="sign-with-google" id="loginButton">Login</a>
+				<a class="sign-with-google" id="createUserButton">Register</a>
+				<a class="sign-with-google" id="loginGoogle"><i class="fa fa-google">&nbsp;-&nbsp;Sign-in with Google</i> </a>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<p>Trading CFDs and FX Options entail risk and could result in the loss of your capital.</p>
+		<p> &copy; 2019 - All rights reserved </p>
+	</div>
+	<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+	<!-- <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-messaging.js"></script>-->
+	<script src="/scripts/main.js"></script>
+	<script>
+		history.pushState(null, '', location.href.split('?')[0]);
+		var signInButtonElement = document.getElementById('signinButton');
+		var signOutButtonElement = document.getElementById('signoutButton');
+		var createUserButtonElement = document.getElementById('createUserButton');
+		var loginButtonElement = document.getElementById('loginButton');
+		var loginGoogleElement = document.getElementById('loginGoogle');
+		var userPicElement = document.getElementById('user-pic');
+		var userNameElement = document.getElementById('user-name');
+		var registerFormElement = document.getElementById('registerForm');
+
+		signInButtonElement.addEventListener('click', function () {
+			registerFormElement.removeAttribute('hidden');
+		});
+
+		signOutButtonElement.addEventListener('click', signOut);
+
+		createUserButtonElement.addEventListener('click', function () {
+			firebase
+			  	.auth()
+				.createUserWithEmailAndPassword(emailInput.value, passwordInput.value)
+				.then(function () {
+					alert('Welcome ' + emailInput.value);
+				})
+				.catch(function (error) {
+					alert(error.message);
+				});
+		});
+
+		loginButtonElement.addEventListener('click', function () {
+			firebase
+				.auth()
+				.signInWithEmailAndPassword(emailInput.value, passwordInput.value)
+				.then(function (result) {
+					console.log(result);
+				})
+				.catch(function (error) {
+					alert(error.message);
+				});
+		});		
+
+		loginGoogleElement.addEventListener('click', function () {
+			let provider = new firebase.auth.GoogleAuthProvider();
+			signIn(provider);
+		});
+
+		function authStateObserver(user) {
+    		if (user) {
+				console.log(user);
+				return firebase.auth().currentUser.getIdToken()
+      				.then(idToken => {
+						postForm('/v1/home', {userID: idToken}, 'get');  
+      				}).catch();				
+    		} else {
+				userPicElement.style.backgroundImage = 'url("/images/profile_placeholder.png")';
+			    userNameElement.setAttribute('hidden', 'true');
+      			signOutButtonElement.setAttribute('hidden', 'true');
+				signInButtonElement.removeAttribute('hidden');
+    		}
+  		}		
+  		initFirebaseAuth(authStateObserver);
+	</script>
+</body>
+</html>

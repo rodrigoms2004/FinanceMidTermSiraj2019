@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='//fonts.googleapis.com/css?family=Jura:400,300,500,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+    <link href="/styles/main.css" rel="stylesheet" type="text/css" media="all" />
+<!--
+    <script type="text/javascript">
+        var uri = window.location.toString();
+        if (uri.indexOf("?") > 0) {
+            var clean_uri = uri.substring(0, uri.indexOf("?"));
+            window.history.replaceState({}, document.title, clean_uri);
+        }
+    </script> 
+-->        
+</head>
+ <body class="home-page">
+    <div class="header">
+        <div class="logo">
+            <a class="logo">CompanyLogo</a>
+        </div>
+        <div class="signup-row">
+            <div class="sign-buttons">
+                <a class="signin" hidden id="signoutButton">SIGN-OUT</a>
+            </div>
+            <div class="welcome">
+                <a class="user" hidden id="user-name"></a>
+                <div id="user-pic"></div>
+             </div>
+        </div>
+    </div>
+    <section>
+            <h1><%= title %></h1>
+            <p>Your credit: <strong><%= credit %></strong></p>
+    </section>
+	<div class="footer">
+        <p>Trading CFDs and FX Options entail risk and could result in the loss of your capital.</p>
+        <p> &copy; 2019 - All rights reserved </p>
+     </div>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script>
+        var signOutButtonElement = document.getElementById('signoutButton');
+        var userPicElement = document.getElementById('user-pic');
+        var userNameElement = document.getElementById('user-name');
+
+        signOutButtonElement.addEventListener('click', signOut);
+    
+        function authStateObserver(user) {
+            if (user) {
+                let profilePicUrl = getProfilePicUrl();
+                let userName = getUserName();
+                userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
+                userNameElement.textContent = userName;
+      
+                userNameElement.removeAttribute('hidden');
+                userPicElement.removeAttribute('hidden');
+                signOutButtonElement.removeAttribute('hidden');
+            } else {
+				window.location.href = "/";  
+            }
+        }		
+        initFirebaseAuth(authStateObserver);
+    </script>
+</body>
+</html>
+    
