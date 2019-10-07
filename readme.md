@@ -52,22 +52,9 @@ module.exports = {
 }
 ```
 
-Using file */src/config/serviceAccountKey_example.json* as example, create a new file */src/config/serviceAccountKey.json* with:
+In Firebase: Project Settings > Service Accounts tab > Generate new private key
+Download file and save it in src/config as *serviceAccountKey.json*
 
-```
-{
-  "type": "service_account",
-  "project_id": "first-project...",
-  "private_key_id": "YOUR PRIVATE KEY",
-  "private_key": "-----BEGIN PRIVATE KEY-----YOUR KEY HERE-----END PRIVATE KEY-----\n",
-  "client_email": "client email",
-  "client_id": "CLIENT ID",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "CLIENT X509 CERT"
-}
-```
 
 ## Running
 

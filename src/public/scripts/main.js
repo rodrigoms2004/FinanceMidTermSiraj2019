@@ -1,10 +1,11 @@
 'use strict';
-var config = {
-    apiKey: "AIzaSyCU-SBrxvxd2Mh0GwLEYEppKFZsVIJD9SA",
-    authDomain: "first-project-83b31.firebaseapp.com",
-    projectId: "first-project-83b31",
-    appId: "1:1076010716137:web:517890c1d45e0804071978"
-};
+
+const config = {
+  apiKey: 'AIzaSyB25j6lT8AjWq45mA3rRsHCwseEbEf-7ks',
+  authDomain: 'midterm-siraj2019.firebaseapp.com',
+  projectId: 'midterm-siraj2019',
+  appId: '1:372335439565:web:3b030643b0c461cb794384'
+}
 
 firebase.initializeApp(config);
 
