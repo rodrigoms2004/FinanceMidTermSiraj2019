@@ -101,7 +101,6 @@ function addCheckoutMethod(elCheckout, elError, name, description, charge_amount
     locale: 'auto',
     token: async token => {
       let res = await charge(token, description, charge_amount, charge_currency, charge_queries);
-      console.log(res);
       if (res.hasOwnProperty('status') && res.status === "succeeded"){
         firebase.auth().currentUser.getIdToken()
           .then(idToken => {
