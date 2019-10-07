@@ -11,11 +11,11 @@ const paymentController = {
       const credit = await paymentModel.checkCredit(req.body.uid);
 
       if (!credit){
-        return res.render('payment', {title: "Midterm", api_key:`${STRIPE_KEY_PUB}`, 
-           data_name: "Midterm - Site", val_1: 1000, val_2: 10000, val_3: 90000});
+        return res.render('payment', {title: "ML Signal", api_key:`${STRIPE_KEY_PUB}`, 
+           data_name: "ML Signal", val_1: 1000, val_2: 10000, val_3: 90000});
       }
       else{
-        res.render('home', {title: 'Midterm - Site', credit: credit});
+        res.render('home', {title: 'ML Signal', credit: credit});
       }
     } catch(error) {
       log("paymentController", "error", `Error message ${error}`)
