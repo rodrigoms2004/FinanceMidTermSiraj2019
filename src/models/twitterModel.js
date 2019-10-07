@@ -19,7 +19,7 @@ const twitterModel = {
       }
       const requestBody = { grant_type: 'client_credentials' }
       const { data } = await api.post('/oauth2/token', qs.stringify(requestBody), config)
-      
+
       return data
 
     } catch (error) {
@@ -45,7 +45,23 @@ const twitterModel = {
           text: tweet.text
         }
       })
-      return tweets
+
+      // converts object to array
+      const arrayOfTweets = JSON.parse(JSON.stringify(tweets))
+    
+      // make sure that text is string
+      const result = arrayOfTweets.map(tweet => {
+        // remove field text, keeping the rest
+        const {text, ...originalData} = tweet
+        return {
+          ...originalData,
+          text: String(tweet.text)
+        }
+      })
+
+
+      return result
+
     } catch (error) {
       log("twitterModel", "error", `Error message ${error.message}`)
       return error.message
@@ -55,5 +71,3 @@ const twitterModel = {
 }
 
 module.exports = twitterModel
-
-
