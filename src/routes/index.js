@@ -3,11 +3,12 @@ const router = require('express').Router()
 const alpacaController = require('../controllers/alpacaController')
 const twitterController = require('../controllers/twitterController')
 const paymentController = require('../controllers/paymentController')
-
+const sentimentController = require('../controllers/sentimentController')
 
 router.get('/asset/:id', alpacaController.asset)
 router.get('/tweets/:id', twitterController.getTweets)
 
+router.get('/sentiment/:id', sentimentController.getTweets)
 
 router.get('/', function (req, res, next) {
   return res.render('index', {title: "ML Signal"});
