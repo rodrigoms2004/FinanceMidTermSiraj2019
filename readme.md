@@ -144,3 +144,25 @@ https://medium.com/@vladfr/use-cloud-firestore-with-async-bce875af0183
 https://stripe.com/docs/recipes/custom-checkout
 https://medium.com/@gordonnl/headless-stripe-payments-with-firebase-9b12639ea118
 ```
+
+## Authors
+
+* **Rodrigo Moraes Silveira**
+*Git hub* - (https://github.com/rodrigoms2004)
+*E-mail*  - rodrigoms2004@gmail.com
+*Discord* - rodrigo.silveira#4776
+
+* **Marco Alessandro de Campos**
+*Git hub* - (https://github.com/titocampos)
+*E-mail*  - titocampos@gmail.com
+*Discord* - titocampos
+
+* **Craig Austin**
+*Git hub* - (https://github.com/WannaBreakout)
+*E-mail*  - craig07may@gmail.com
+*Discord* - cabin
+
+* **Stefan Fricke**
+*Git hub* - (https://github.com/Stefan566)
+*E-mail*  - 
+*Discord* - Stefan999
