@@ -10,7 +10,7 @@ router.get('/tweets/:id', twitterController.getTweets)
 
 
 router.get('/', function (req, res, next) {
-  return res.render('index', {title: "Midterm - Site"});
+  return res.render('index', {title: "ML Signal"});
 });
 
 router.get('/v1/home', paymentController.credit);

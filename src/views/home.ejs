@@ -20,7 +20,6 @@
  <body class="home-page">
     <div class="header">
         <div class="logo">
-            <a class="logo">CompanyLogo</a>
         </div>
         <div class="signup-row">
             <div class="sign-buttons">
@@ -32,9 +31,71 @@
              </div>
         </div>
     </div>
-    <section>
-            <h1><%= title %></h1>
-            <p>Your credit: <strong><%= credit %></strong></p>
+    <section id="sec-assets">
+        <div class="page-view">
+            <div class="page-title">
+                <div>
+                    <ul id=menu>
+                        <li id="li-cripto" onClick="clickMenu('cripto')"><a>Cripto</a></li>
+                        <li id="li-forex"  onClick="clickMenu('forex')"><a>Forex</a></li>
+                        <li id="li-metal"  onClick="clickMenu('metal')"><a>Metals</a></li>
+                        <li id="li-stock"  onClick="clickMenu('stock')"><a>Stocks</a></li>
+                    </ul>
+                </div>
+                <p id="credit">Actual credit: <%= credit %></p>
+            </div>
+            <div id="div-cripto" hidden>
+                <div class="div-grid">
+                    <p class="row-odd"  onClick="clickRow('cripto', 'ETHEUR')">ETH/EUR</p>
+                    <p class="row-even" onClick="clickRow('cripto', 'ETHUSD')">ETH/USD</p>
+                    <p class="row-odd"  onClick="clickRow('cripto', 'BTCEUR')">BTC/EUR</p>
+                    <p class="row-even" onClick="clickRow('cripto', 'BTCUSD')">BTC/USD</p>
+                </div>
+            </div>
+            <div id="div-forex" hidden>
+                <div class="div-grid">
+                    <p class="row-odd"  onClick="clickRow('forex', 'AUDUSD')">AUD/USD</p>
+                    <p class="row-even" onClick="clickRow('forex', 'NZDUSD')">NZD/USD</p>
+                    <p class="row-odd"  onClick="clickRow('forex', 'EURGBP')">EUR/GBP</p>
+                    <p class="row-even" onClick="clickRow('forex', 'EURUSD')">EUR/USD</p>
+                    <p class="row-odd"  onClick="clickRow('forex', 'GBPJPY')">GBP/JPY</p>
+                    <p class="row-even" onClick="clickRow('forex', 'GBPUSD')">GBP/USD</p>
+                    <p class="row-odd"  onClick="clickRow('forex', 'USDJPY')">USD/JPY</p>
+                    <p class="row-even" onClick="clickRow('forex', 'USDCAD')">USD/CAD</p>
+                    <p class="row-odd"  onClick="clickRow('forex', 'USDCHF')">USD/CHF</p>               
+                </div>                        
+            </div>
+            <div id="div-metal" hidden>
+                  <div class="div-grid">
+                    <p class="row-odd"  onClick="clickRow('metal', 'XAUUSD')">XAU/USD</p>
+                    <p class="row-even" onClick="clickRow('metal', 'XAGUSD')">XAG/USD</p>
+                </div>                        
+            </div>
+            <div id="div-stock" hidden>
+                <div class="div-grid">
+                    <p class="row-odd"  onClick="clickRow('stock', 'AAPL')">AAPL</p>
+                    <p class="row-even" onClick="clickRow('stock', 'FB')">FB</p>
+                    <p class="row-odd" onClick="clickRow('stock', 'BA')">BA</p>
+                    <p class="row-even" onClick="clickRow('stock', 'TSLA')">TSLA</p>
+                    <p class="row-odd" onClick="clickRow('stock', 'MSFT')">MSFT</p>
+                    <p class="row-even" onClick="clickRow('stock', 'AMZN')">AMZN</p>
+                    <p class="row-odd" onClick="clickRow('stock', 'PYPL')">PYPL</p>
+                    <p class="row-even" onClick="clickRow('stock', 'SCHW')">SCHW</p>
+                    <p class="row-odd" onClick="clickRow('stock', 'MO')">MO</p>
+                    <p class="row-even" onClick="clickRow('stock', 'SDC')">SDC</p>
+                    <p class="row-odd" onClick="clickRow('stock', 'COST')">COST</p>
+                    <p class="row-even" onClick="clickRow('stock', 'PEP')">PEP</p>
+                    <p class="row-odd" onClick="clickRow('stock', 'MTCH')">MTCH</p>
+                    <p class="row-even" onClick="clickRow('stock', 'OSTK')">OSTK</p>
+                    <p class="row-odd" onClick="clickRow('stock', 'TWOU')">TWOU</p>
+                    <p class="row-even" onClick="clickRow('stock', 'VRAY')">VRAY</p>
+                    <p class="row-odd" onClick="clickRow('stock', 'AMTD')">AMTD</p>
+                    <p class="row-even" onClick="clickRow('stock', 'ETFC')">ETFC</p>
+                    <p class="row-odd" onClick="clickRow('stock', 'HPQ')">HPQ</p>
+                    <p class="row-even" onClick="clickRow('stock', 'WTRH')">WTRH</p>
+                </div>                                                
+            </div>
+        </div>
     </section>
 	<div class="footer">
         <p>Trading CFDs and FX Options entail risk and could result in the loss of your capital.</p>
@@ -42,11 +103,23 @@
      </div>
     <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-firestore.js"></script>
     <script src="/scripts/main.js"></script>
     <script>
-        var signOutButtonElement = document.getElementById('signoutButton');
-        var userPicElement = document.getElementById('user-pic');
-        var userNameElement = document.getElementById('user-name');
+        const signOutButtonElement = document.getElementById('signoutButton');
+        const userPicElement = document.getElementById('user-pic');
+        const userNameElement = document.getElementById('user-name');
+        const creditElement = document.getElementById('credit');
+        const liCriptoElement = document.getElementById('li-cripto');
+        const liForexElement = document.getElementById('li-forex');
+        const liMetalElement = document.getElementById('li-metal');
+        const liStockElement = document.getElementById('li-stock');
+        const divCriptoElement = document.getElementById('div-cripto');
+        const divForexElement = document.getElementById('div-forex');
+        const divMetalElement = document.getElementById('div-metal');
+        const divStockElement = document.getElementById('div-stock');
+
+        let queryUser;
 
         signOutButtonElement.addEventListener('click', signOut);
     
@@ -54,6 +127,16 @@
             if (user) {
                 let profilePicUrl = getProfilePicUrl();
                 let userName = getUserName();
+                
+                /*Getting the user credit */
+                queryUser =  firebase.firestore().doc("users/" + user.uid);
+                queryUser.onSnapshot(doc => {
+                    let data = doc.data();
+                    creditElement.innerText = "Actual credit: "+data.totalCredit;
+                }, err => {
+                    console.log(`Encountered error: ${err}`);
+                });
+
                 userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
                 userNameElement.textContent = userName;
       
@@ -65,6 +148,28 @@
             }
         }		
         initFirebaseAuth(authStateObserver);
+
+        function clickRow(_class, _asset){
+            alert(_class+"->"+_asset);
+        }
+        function clickMenu(menu){
+            let li = document.getElementById('li-' + menu);
+            let div = document.getElementById('div-' + menu);
+
+            liCriptoElement.style.background = "#4c5261";
+            liForexElement.style.background = "#4c5261";
+            liMetalElement.style.background = "#4c5261";
+            liStockElement.style.background = "#4c5261";
+            divCriptoElement.setAttribute('hidden', true);
+            divForexElement.setAttribute('hidden', true);
+            divMetalElement.setAttribute('hidden', true);
+            divStockElement.setAttribute('hidden', true);
+
+            li.style.background = "grey";
+            div.removeAttribute('hidden');
+        }
+
+        clickMenu('cripto')
     </script>
 </body>
 </html>
