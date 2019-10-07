@@ -14,7 +14,7 @@ const sentimentModel = {
       }
 
       const requestBody = tweets
-      const { data } = await api.post('/api/sentiment', JSON.parse(JSON.stringify(requestBody)), config)
+      const { data } = await api.post('/api/sentimentValue', JSON.parse(JSON.stringify(requestBody)), config)
 
       return data
 
