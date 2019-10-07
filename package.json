@@ -5,6 +5,7 @@
   "main": "src/bin/index.js",
   "scripts": {
     "start": "node src/bin/index.js",
+    "watch": "nodemon src/bin/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
