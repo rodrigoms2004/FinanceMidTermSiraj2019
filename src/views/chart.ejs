@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='//fonts.googleapis.com/css?family=Jura:400,300,500,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+    <link href="/styles/main.css" rel="stylesheet" type="text/css" media="all" />   
+</head>
+ <body class="home-page">
+    <div class="header">
+        <div class="logo">
+        </div>
+        <div class="signup-row">
+            <div class="sign-buttons">
+                <a class="signin" hidden id="signoutButton">SIGN-OUT</a>
+            </div>
+            <div class="welcome">
+                <a class="user" hidden id="user-name"></a>
+                <div id="user-pic"></div>
+             </div>
+        </div>
+    </div>
+    <section id="sec-chart">
+        <div id="chart_div"></div>
+    </section>
+	<div class="footer">
+        <p>Trading CFDs and FX Options entail risk and could result in the loss of your capital.</p>
+        <p> &copy; 2019 - All rights reserved </p>
+     </div>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>       
+    <script src="/scripts/main.js"></script>
+    <script>
+        const signOutButtonElement = document.getElementById('signoutButton');
+        const userPicElement = document.getElementById('user-pic');
+        const userNameElement = document.getElementById('user-name');
+        signOutButtonElement.addEventListener('click', signOut);
+    
+        function authStateObserver(user) {
+            if (user) {
+                let profilePicUrl = getProfilePicUrl();
+                let userName = getUserName();
+                
+                userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
+                userNameElement.textContent = userName;
+      
+                userNameElement.removeAttribute('hidden');
+                userPicElement.removeAttribute('hidden');
+                signOutButtonElement.removeAttribute('hidden');
+            } else {
+				window.location.href = "/";  
+            }
+        }		
+        initFirebaseAuth(authStateObserver);
+
+
+        google.charts.load('current', {packages: ['line']});
+        google.charts.setOnLoadCallback(drawBasic);
+
+        function drawBasic() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', 'Day');
+            data.addColumn('number', 'GBP/USD');
+
+            data.addRows([
+        [0, 0],   [1, 10],  [2, 23],  [3, 17],  [4, 18],  [5, 9],
+        [6, 11],  [7, 27],  [8, 33],  [9, 40],  [10, 32], [11, 35],
+        [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
+        [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
+        [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
+        [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
+        [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
+        [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
+        [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
+        [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
+        [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
+        [66, 70], [67, 72], [68, 75], [69, 80]
+      ]);
+
+            var options = {
+                chart: {
+                    title: 'Box Office Earnings in First Two Weeks of Opening',
+                    titlePosition: 'center',
+                    titleTextStyle: {
+                        color: '#FF0000',
+                        bold: true,
+                        alignment: 'center'
+                    }
+                },
+                hAxis: {
+                    title: 'Date'
+                },
+                vAxis: {
+                    title: 'Value'
+                },
+                legend: {position: 'center', textStyle: {color: 'red', fontSize: 16}},
+                width: 650,
+                height: 300
+            };
+
+            var chart = new google.charts.Line(document.getElementById('chart_div'));
+
+            chart.draw(data, google.charts.Line.convertOptions(options));
+        }
+    </script>
+</body>
+</html>
+    
+//https://min-api.cryptocompare.com/data/v2/histominute?fsym=BTC&tsym=USD&limit=100&api_key=01f7ca90b795a2b613402bea434b8367704ee93b8eb10472eeb96c7dcde53393
+
