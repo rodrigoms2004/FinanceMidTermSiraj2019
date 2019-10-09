@@ -12,7 +12,7 @@ Midterm application
 
 Click in **SIG-IN**
 
-![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019master/documentation/img/1-main.png =633x451)
+![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/documentation/img/1-main.png =633x451)
 
 
 
