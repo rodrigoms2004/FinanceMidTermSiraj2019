@@ -1,5 +1,7 @@
 # Week 5 - Midterm
 
+This application uses [ML Web service](https://github.com/rodrigoms2004/FinanceML_API) to analyse Twitter sentiments
+
 Midterm application
 
 ### Requirements
@@ -31,6 +33,8 @@ Using file */src/config/api_example.js* as example, create a new file */src/conf
 * your Alpaca credentials
 * your Twitter credentials
 * your Stripe credentials
+* your Foreign Exchange Marketing credentials
+* your Crypto Compare credentials
 
 ```
 module.exports = {
@@ -45,9 +49,26 @@ module.exports = {
     access_token_secret: 'YOUR ACCESS TOKEN SECRET HERE',
     number_of_tweets: 100 // default 15 up to 100
   },
-    stripe: {
+  stripe: {
     STRIPE_KEY_PUB: 'YOUR PUBLIC KEY HERE',
     STRIPE_KEY_PRIV: 'YOUR SECRET KEY HERE'
+  },
+  firebase_api : {
+    apiKey: 'YOUR API KEY HERE',
+    authDomain: 'YOUR DOMAIN HERE',
+    databaseURL: ' YOUR DATABASE URL HERE firebaseio.com',
+    projectId: 'YOUR PROJECT ID HERE',
+    storageBucket: 'YOUR PROJECT ID HERE.appspot.com',
+    messagingSenderId: 'YOUR MESSEGING SENDER ID HERE',
+    appId: 'YOUR APP ID HERE',
+    measurementId: 'YOUR MESUREMENTE ID HERE',
+    databaseURL: 'https://YOUR PROJECT ID HERE.firebaseio.com',
+  },
+  fxmarket: {
+    fxmarket_api_key: 'YOUR KEY HERE'
+  },
+  cryptocompare: {
+    cryptocompare_api_key: 'YOUR KEY HERE'
   }
 }
 ```

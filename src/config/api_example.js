@@ -13,5 +13,22 @@ module.exports = {
   stripe: {
     STRIPE_KEY_PUB: 'YOUR PUBLIC KEY HERE',
     STRIPE_KEY_PRIV: 'YOUR SECRET KEY HERE'
+  },
+  firebase_api : {
+    apiKey: 'YOUR API KEY HERE',
+    authDomain: 'YOUR DOMAIN HERE',
+    databaseURL: ' YOUR DATABASE URL HERE firebaseio.com',
+    projectId: 'YOUR PROJECT ID HERE',
+    storageBucket: 'YOUR PROJECT ID HERE.appspot.com',
+    messagingSenderId: 'YOUR MESSEGING SENDER ID HERE',
+    appId: 'YOUR APP ID HERE',
+    measurementId: 'YOUR MESUREMENTE ID HERE',
+    databaseURL: 'https://YOUR PROJECT ID HERE.firebaseio.com',
+  },
+  fxmarket: {
+    fxmarket_api_key: 'YOUR KEY HERE'
+  },
+  cryptocompare: {
+    cryptocompare_api_key: 'YOUR KEY HERE'
   }
 }
