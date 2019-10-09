@@ -1,5 +1,5 @@
 const { log } = require('../util/loggerTool')
-const firebase = require('../services/firebase-service');
+const { firebase } = require('../services/firebase-service');
 
 const paymentModel = {
 
@@ -17,7 +17,7 @@ const paymentModel = {
             }
             return {error: "error"}
         } catch (error) {
-            log("loginModel", "error", `Error message at authOn method ${error.message}`)
+            log("paymentModel", "error", `Error message at authOn method ${error.message}`)
             return { error: error.message }
         }
     },
@@ -31,7 +31,7 @@ const paymentModel = {
             return 0;
         });
       } catch (error) {
-        log("loginModel", "error", `Error message at checkCredit method ${error.message}`)
+        log("paymentModel", "error", `Error message at checkCredit method ${error.message}`)
         return { error: error.message}
         }
     },
