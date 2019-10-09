@@ -7,6 +7,80 @@
     <link href='//fonts.googleapis.com/css?family=Jura:400,300,500,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
     <link href="/styles/main.css" rel="stylesheet" type="text/css" media="all" />   
+	<style>
+        #content_div{
+            width: 100%;
+            display: flex;
+            flex-direction : column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 95px;
+            padding-bottom: 55px;
+        }
+        #sec-table{
+            width: 80%;
+            display: flex;
+            flex-direction : column;
+            justify-content: center;
+            align-items: center;
+        }
+        #chart_div{
+            padding: 30px 5px;
+            margin-top: 20px;
+            width: 700px;
+            height: 350px;
+            background-color: #fff;
+        }
+        #progress-back{
+            margin-top: 0px;
+            margin-bottom: 20px;
+            width: 300px;
+            height: 22px;
+            background-color: #ccc;
+            display: flex;
+            flex-direction : row;
+        }
+        .progress-container{
+            width: 50%;
+        }
+        #progress-item1{
+            height: 100%;
+            background-color: #f00;
+            width:0px;
+            float: right;
+            border-right-style: solid;
+            border-width: 1px;
+        }
+        #progress-item2{
+            height: 100%;
+            background-color: #00f;
+            width:0px;
+        }
+        #progress-titles{
+            margin-top: 0px;
+            width: 300px;
+            height: 22px;
+            display: flex;
+            flex-direction : row;
+            align-items: center;
+            color: #fff
+        }
+        #progress-title1{
+            display: flex;
+            justify-content: center;
+        }
+        #progress-title2{
+            display: flex;
+            justify-content: center;
+        }
+        thead, tbody{
+            display: block;  
+        }
+        tbody{
+            overflow-y: scroll;
+            height: 245px;
+        }
+    </style>
 </head>
  <body class="home-page">
     <div class="header">
@@ -22,21 +96,43 @@
              </div>
         </div>
     </div>
-    <section id="sec-chart">
+    <div id="content_div">
         <div id="chart_div"></div>
-    </section>
+		<h2>Tweeter Sentiment</h2>
+		<div id="progress-titles">
+            <div class="progress-container">
+            <div id="progress-title1">Negatineness</div>
+            </div>
+            <div class="progress-container">
+            <div id="progress-title2">Positiveness</div>
+            </div>
+        </div>
+        <div id="progress-back">
+            <div class="progress-container">
+                <div id="progress-item1"></div>
+            </div>
+            <div class="progress-container">
+                <div id="progress-item2"></div>
+            </div>
+        </div>
+        <section id="sec-table">
+            <table class="table" id="tweets"></table>
+        </section>
+    </div>
 	<div class="footer">
         <p>Trading CFDs and FX Options entail risk and could result in the loss of your capital.</p>
         <p> &copy; 2019 - All rights reserved </p>
      </div>
     <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/charts/loader.js"></script>       
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="/scripts/main.js"></script>
     <script>
         const signOutButtonElement = document.getElementById('signoutButton');
         const userPicElement = document.getElementById('user-pic');
         const userNameElement = document.getElementById('user-name');
+        const progress1Element = document.getElementById('progress-item1');
+        const progress2Element = document.getElementById('progress-item2');
         signOutButtonElement.addEventListener('click', signOut);
     
         function authStateObserver(user) {
@@ -56,58 +152,58 @@
         }		
         initFirebaseAuth(authStateObserver);
 
+        function getData() {
+            var arr = []
+            var data = JSON.parse('<%- graphData %>');
 
-        google.charts.load('current', {packages: ['line']});
-        google.charts.setOnLoadCallback(drawBasic);
-
-        function drawBasic() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('number', 'Day');
-            data.addColumn('number', 'GBP/USD');
-
-            data.addRows([
-        [0, 0],   [1, 10],  [2, 23],  [3, 17],  [4, 18],  [5, 9],
-        [6, 11],  [7, 27],  [8, 33],  [9, 40],  [10, 32], [11, 35],
-        [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
-        [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
-        [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
-        [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
-        [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
-        [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
-        [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
-        [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
-        [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
-        [66, 70], [67, 72], [68, 75], [69, 80]
-      ]);
-
-            var options = {
-                chart: {
-                    title: 'Box Office Earnings in First Two Weeks of Opening',
-                    titlePosition: 'center',
-                    titleTextStyle: {
-                        color: '#FF0000',
-                        bold: true,
-                        alignment: 'center'
-                    }
-                },
-                hAxis: {
-                    title: 'Date'
-                },
-                vAxis: {
-                    title: 'Value'
-                },
-                legend: {position: 'center', textStyle: {color: 'red', fontSize: 16}},
-                width: 650,
-                height: 300
-            };
-
-            var chart = new google.charts.Line(document.getElementById('chart_div'));
-
-            chart.draw(data, google.charts.Line.convertOptions(options));
+            for (const [key, value] of Object.entries(data)) {
+                arr.push([(new Date(key)).getTime(),value]);  
+            }
+            return arr;
         }
+        dataGraph = getData();
+
+        Highcharts.chart('chart_div', {
+            chart: {
+                zoomType: 'x'
+            },
+            title:{
+                text:''
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            series: [{
+                data: dataGraph,
+                lineWidth: 1,
+                name: '<%= serie %>'
+            }]
+
+        });
+
+        progress1Element.style.width = "0%";
+        progress2Element.style.width = "0%";
+
+        showSentiment(<%= sentiment %>, progress1Element, progress2Element);
+
+        const tweets_text =  "<%- tweets %>"
+//           .replace(/&#39/g, "\'")
+           .replace(/[\\]/g, '\\')
+           .replace(/[\/]/g, '/')
+           .replace(/[\b]/g, '\b')
+           .replace(/[\f]/g, '\f')
+           .replace(/[\n]/g, '\n')
+           .replace(/[\r]/g, '\r')
+           .replace(/[\t]/g, '\t')
+           .replace(/[\"]/g, '"')
+           .replace(/\'/g, "'"); 
+
+
+        const tweets =  JSON.parse(tweets_text);
+  
+        const table = document.querySelector("table");
+        generateTable(table, tweets);
+
     </script>
 </body>
 </html>
-    
-//https://min-api.cryptocompare.com/data/v2/histominute?fsym=BTC&tsym=USD&limit=100&api_key=01f7ca90b795a2b613402bea434b8367704ee93b8eb10472eeb96c7dcde53393
-
