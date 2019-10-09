@@ -18,7 +18,7 @@ const paymentController = {
         res.render('home', {title: 'ML Signal', credit: credit});
       }
     } catch(error) {
-      log("paymentController", "error", `Error message ${error}`)
+      log("paymentController", "error", `Error message at credit method ${error}`)
       return res.status(500).send({ message: error })
     }
   },
@@ -28,7 +28,7 @@ const paymentController = {
       const credit = await paymentModel.checkCredit(req.body.uid);
       return res.status(200).send({ credit: credit });
     } catch(error) {
-      log("paymentController", "error", `Error message ${error}`)
+      log("paymentController", "error", `Error message at query method ${error}`)
       return res.status(500).send({ message: error })
     }
   },
@@ -51,12 +51,12 @@ const paymentController = {
           res.status(200).send({status: "succeeded"});
       })
       .catch(err => {
-        log("paymentController", "error", `Error message ${err}`)
+        log("paymentController", "error", `Error message inside charge method ${err}`)
         res.status(500).send({status: "failed"});
       });
       //const login = await loginModel.authOn(username, password)
     } catch(error) {
-      log("paymentController", "error", `Error message ${error}`)
+      log("paymentController", "error", `Error message at charge method ${error}`)
       return res.status(400).send({ message: error })
     }
   }

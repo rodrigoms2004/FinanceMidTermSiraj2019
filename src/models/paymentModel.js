@@ -17,18 +17,23 @@ const paymentModel = {
             }
             return {error: "error"}
         } catch (error) {
-            log("loginModel", "error", `Error message ${error.message}`)
+            log("loginModel", "error", `Error message at authOn method ${error.message}`)
             return { error: error.message }
         }
     },
     
     checkCredit: async(userID) => {
+      try {
         return firebase.firestore().collection('users').doc(userID).get().then(function (doc) {
             if (doc.exists) {
                 return doc.data().totalCredit;
             }
             return 0;
         });
+      } catch (error) {
+        log("loginModel", "error", `Error message at checkCredit method ${error.message}`)
+        return { error: error.message}
+        }
     },
 
     addPayment: async(userID, charge, queries) => {
@@ -53,6 +58,7 @@ const paymentModel = {
                 return transaction.set(newCharge, charge);
             })
             .catch(err => {
+                log("loginModel", "error", `Error message at addPayment method ${error.message}`)
                 console.log('Error getting document', err);
             });
         });
