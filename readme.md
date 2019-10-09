@@ -174,5 +174,5 @@ https://medium.com/@gordonnl/headless-stripe-payments-with-firebase-9b12639ea118
 
 * **Stefan Fricke**
 *Git hub* - (https://github.com/Stefan566)
-*E-mail*  - 
+*E-mail*  - sfricke@sfricke.de
 *Discord* - Stefan999
