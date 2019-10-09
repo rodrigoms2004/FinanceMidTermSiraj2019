@@ -139,6 +139,16 @@ https://codeforgeek.com/manage-session-using-node-js-express-4/
 https://medium.com/novasemita/auth-using-firebaseui-firebase-functions-session-cookies-f2447bf42201
 https://medium.com/@vladfr/use-cloud-firestore-with-async-bce875af0183
 ```
+
+#### Firebase Firewall rules
+
+[About FCM messages](https://firebase.google.com/docs/cloud-messaging/concept-options)
+
+**Ports:**
+* 5228
+* 5229
+* 5230
+
 ### Stripe
 ```
 https://stripe.com/docs/recipes/custom-checkout

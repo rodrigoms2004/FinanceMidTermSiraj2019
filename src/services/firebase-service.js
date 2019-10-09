@@ -2,6 +2,7 @@
 const firebase = require("firebase-admin");
 const serviceAccount = require("../config/serviceAccountKey.json");
 const { firebase_api } = require('../config/api')
+const { log } = require('../util/loggerTool')
 
 const { databaseURL } = firebase_api
 
@@ -10,9 +11,8 @@ firebase.initializeApp({
   databaseURL: databaseURL
 });
 
-module.exports = firebase;
-
-module.exports.verifyToken = async (req, res, next) =>{
+// module.exports.verifyToken = async (req, res, next) =>{
+const verifyToken = async (req, res, next) =>{
   let idToken;
   if (req.body.userID){
     idToken = req.body.userID
@@ -29,11 +29,14 @@ module.exports.verifyToken = async (req, res, next) =>{
       return next();
     }
     else
+      log("firebase-service", "error", `You are not authorized!`)
       return res.status(401).send('You are not authorized!')
   }
-  catch(e){
+  catch(error) {
+    log("firebase-service", "error", `error at verifyToken method: ${error}`)
     return res.status(401).send('You are not authorized!')
   }
 }
 
 
+module.exports = { firebase, verifyToken }
