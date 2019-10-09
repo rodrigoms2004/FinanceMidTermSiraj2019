@@ -38,7 +38,7 @@ Choose a stock
 
 A distribuited application
 
-![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/documentation/img/ML_Signals.png)
+![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/documentation/img/ML_Signals_topology.png)
 
 
 ### Requirements
