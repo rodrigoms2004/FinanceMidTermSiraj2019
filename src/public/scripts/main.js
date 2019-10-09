@@ -147,3 +147,36 @@ async function charge(token, description, amount, currency, queries) {
   const data = await res.json();
   return data;
 }
+
+function showSentiment(nivel, el1, el2){
+	if (nivel < 0 )
+		el1.style.width = (Math.abs(nivel / 3) * 100) + "%";
+	else
+		el2.style.width = (Math.abs(nivel / 3) * 100) + "%";
+}
+
+function generateTableHead(table, data) {
+  let thead = table.createTHead();
+  let row = thead.insertRow();
+  for (let key of data) {
+    let th = document.createElement("th");
+    let text = document.createTextNode(key);
+    th.appendChild(text);
+    row.appendChild(th);
+  }
+}
+
+function generateTable(table, data) {
+  for (let i in data) {
+    let row = table.insertRow();
+    let cell1 = row.insertCell();
+    let date = new Date(data[i].created_at).toISOString().replace("T", " ").substr(0, 19)
+    let text = document.createTextNode(date);
+    cell1.style.width = '160px';
+    cell1.appendChild(text);
+    let cell2 = row.insertCell();
+    text = document.createTextNode(data[i].text);
+    cell2.appendChild(text);
+
+  }
+}
