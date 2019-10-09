@@ -21,8 +21,25 @@ const sentimentController = {
       log("sentimentController", "error", `Error message ${error}`)
       return res.status(400).send({ message: error })
     }
-  }
+  },
 
+  getTweetsInternal: async (query) => {
+    try {
+      const token = await twitterModel.oauth2()
+      const tweets = await twitterModel.searchTweets(token, query)
+      
+      const sentimentTweets = await sentimentModel.getTweets(tweets)
+
+      const result = {
+        sentiment: sentimentTweets,
+        tweets : tweets
+      }
+      return result
+    } catch(error) {
+      log("sentimentController", "error", `Error message ${error}`)
+      return { message: error }
+    }
+  }
 }
 
 module.exports = sentimentController
