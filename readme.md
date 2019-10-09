@@ -15,6 +15,27 @@ Click in **SIG-IN**
 ![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/documentation/img/1-main.png)
 
 
+Put your e-mail and password or sign-in with your Google Account, clique in **Register**
+
+![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/documentation/img/2-login.png)
+
+
+Select a payment plan, make the payment, after that you will be redirected to the main screen 
+
+![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/documentation/img/3-pay.png)
+
+
+Choose a stock
+
+![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/documentation/img/4-stocks.png)
+
+
+Enjoy it!
+
+![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/documentation/img/5-enjoy.png)
+
+
+
 ### Requirements
 
 Node version 10.15.0 or better
