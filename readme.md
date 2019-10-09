@@ -30,7 +30,7 @@ Choose a stock
 ![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/documentation/img/4-stocks.png)
 
 
-Enjoy it!
+**Enjoy it!**
 
 ![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/documentation/img/5-enjoy.png)
 
