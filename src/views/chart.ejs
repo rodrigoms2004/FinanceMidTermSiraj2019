@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='//fonts.googleapis.com/css?family=Jura:400,300,500,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+    <link href="/styles/main.css" rel="stylesheet" type="text/css" media="all" />   
+	<style>
+        #content_div{
+            width: 100%;
+            display: flex;
+            flex-direction : column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 95px;
+            padding-bottom: 55px;
+        }
+        #sec-table{
+            width: 80%;
+            display: flex;
+            flex-direction : column;
+            justify-content: center;
+            align-items: center;
+        }
+        #chart_div{
+            padding: 30px 5px;
+            margin-top: 20px;
+            width: 700px;
+            height: 350px;
+            background-color: #fff;
+        }
+        #progress-back{
+            margin-top: 0px;
+            margin-bottom: 20px;
+            width: 300px;
+            height: 22px;
+            background-color: #ccc;
+            display: flex;
+            flex-direction : row;
+        }
+        .progress-container{
+            width: 50%;
+        }
+        #progress-item1{
+            height: 100%;
+            background-color: #f00;
+            width:0px;
+            float: right;
+            border-right-style: solid;
+            border-width: 1px;
+        }
+        #progress-item2{
+            height: 100%;
+            background-color: #00f;
+            width:0px;
+        }
+        #progress-titles{
+            margin-top: 0px;
+            width: 300px;
+            height: 22px;
+            display: flex;
+            flex-direction : row;
+            align-items: center;
+            color: #fff
+        }
+        #progress-title1{
+            display: flex;
+            justify-content: center;
+        }
+        #progress-title2{
+            display: flex;
+            justify-content: center;
+        }
+        thead, tbody{
+            display: block;  
+        }
+        tbody{
+            overflow-y: scroll;
+            height: 245px;
+        }
+    </style>
+</head>
+ <body class="home-page">
+    <div class="header">
+        <div class="logo">
+        </div>
+        <div class="signup-row">
+            <div class="sign-buttons">
+                <a class="signin" hidden id="signoutButton">SIGN-OUT</a>
+            </div>
+            <div class="welcome">
+                <a class="user" hidden id="user-name"></a>
+                <div id="user-pic"></div>
+             </div>
+        </div>
+    </div>
+    <div id="content_div">
+        <div id="chart_div"></div>
+		<h2>Tweeter Sentiment</h2>
+		<div id="progress-titles">
+            <div class="progress-container">
+            <div id="progress-title1">Negatineness</div>
+            </div>
+            <div class="progress-container">
+            <div id="progress-title2">Positiveness</div>
+            </div>
+        </div>
+        <div id="progress-back">
+            <div class="progress-container">
+                <div id="progress-item1"></div>
+            </div>
+            <div class="progress-container">
+                <div id="progress-item2"></div>
+            </div>
+        </div>
+        <section id="sec-table">
+            <table class="table" id="tweets"></table>
+        </section>
+    </div>
+	<div class="footer">
+        <p>Trading CFDs and FX Options entail risk and could result in the loss of your capital.</p>
+        <p> &copy; 2019 - All rights reserved </p>
+     </div>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-auth.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="/scripts/main.js"></script>
+    <script>
+        const signOutButtonElement = document.getElementById('signoutButton');
+        const userPicElement = document.getElementById('user-pic');
+        const userNameElement = document.getElementById('user-name');
+        const progress1Element = document.getElementById('progress-item1');
+        const progress2Element = document.getElementById('progress-item2');
+        signOutButtonElement.addEventListener('click', signOut);
+    
+        function authStateObserver(user) {
+            if (user) {
+                let profilePicUrl = getProfilePicUrl();
+                let userName = getUserName();
+                
+                userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
+                userNameElement.textContent = userName;
+      
+                userNameElement.removeAttribute('hidden');
+                userPicElement.removeAttribute('hidden');
+                signOutButtonElement.removeAttribute('hidden');
+            } else {
+				window.location.href = "/";  
+            }
+        }		
+        initFirebaseAuth(authStateObserver);
+
+        function getData() {
+            var arr = []
+            var data = JSON.parse('<%- graphData %>');
+
+            for (const [key, value] of Object.entries(data)) {
+                arr.push([(new Date(key)).getTime(),value]);  
+            }
+            return arr;
+        }
+        dataGraph = getData();
+
+        Highcharts.chart('chart_div', {
+            chart: {
+                zoomType: 'x'
+            },
+            title:{
+                text:''
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            series: [{
+                data: dataGraph,
+                lineWidth: 1,
+                name: '<%= serie %>'
+            }]
+
+        });
+
+        progress1Element.style.width = "0%";
+        progress2Element.style.width = "0%";
+
+        showSentiment(<%= sentiment %>, progress1Element, progress2Element);
+
+        const tweets_text =  "<%- tweets %>"
+//           .replace(/&#39/g, "\'")
+           .replace(/[\\]/g, '\\')
+           .replace(/[\/]/g, '/')
+           .replace(/[\b]/g, '\b')
+           .replace(/[\f]/g, '\f')
+           .replace(/[\n]/g, '\n')
+           .replace(/[\r]/g, '\r')
+           .replace(/[\t]/g, '\t')
+           .replace(/[\"]/g, '"')
+           .replace(/\'/g, "'"); 
+
+
+        const tweets =  JSON.parse(tweets_text);
+  
+        const table = document.querySelector("table");
+        generateTable(table, tweets);
+
+    </script>
+</body>
+</html>

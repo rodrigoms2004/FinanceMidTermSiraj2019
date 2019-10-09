@@ -4,6 +4,7 @@ const alpacaController = require('../controllers/alpacaController')
 const twitterController = require('../controllers/twitterController')
 const paymentController = require('../controllers/paymentController')
 const sentimentController = require('../controllers/sentimentController')
+const displayController = require('../controllers/displayController')
 
 router.get('/asset/:id', alpacaController.asset)
 router.get('/tweets/:id', twitterController.getTweets)
@@ -19,6 +20,11 @@ router.get('/v1/home', paymentController.credit);
 router.post("/v1/charge", paymentController.charge);
 
 router.post("/v1/query", paymentController.query);
+
+router.get("/v1/chart", displayController.getDisplay);
+
+// Test route
+router.get("/v2/chart", displayController.getDisplay);
 
 // Test
 router.get('/test', (req, res) => {
