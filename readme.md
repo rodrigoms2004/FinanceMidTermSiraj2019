@@ -2,7 +2,7 @@
 
 This application uses [ML Web service](https://github.com/rodrigoms2004/FinanceML_API) to analyse Twitter sentiments
 
-[Jupyter Notebook](notebook/Testing with Sentimenter.ipynb)
+[Jupyter Notebook](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/notebook/Testing%20with%20Sentimenter.ipynb)
 
 ## Live example
 
