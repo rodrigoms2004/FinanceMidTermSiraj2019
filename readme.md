@@ -34,6 +34,11 @@ Choose a stock
 
 ![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/documentation/img/5-enjoy.png)
 
+## Microservice topology
+
+A distribuited application
+
+![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019/blob/master/documentation/img/ML_Signals.png)
 
 
 ### Requirements
