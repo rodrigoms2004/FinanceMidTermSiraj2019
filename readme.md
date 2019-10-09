@@ -4,7 +4,7 @@ This application uses [ML Web service](https://github.com/rodrigoms2004/FinanceM
 
 Midterm application
 
-## LIVE EXAMPLE
+## Live example
 
 [ML Signals](http://finance.rmsmath.com.br:3500)
 
@@ -65,7 +65,7 @@ Using file */src/config/api_example.js* as example, create a new file */src/conf
 * your Alpaca credentials
 * your Twitter credentials
 * your Stripe credentials
-* your Foreign Exchange Marketing credentials
+* your Foreign Exchange Market credentials
 * your Crypto Compare credentials
 
 ```
