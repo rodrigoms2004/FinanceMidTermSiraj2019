@@ -8,6 +8,14 @@ Midterm application
 
 [ML Signals](http://finance.rmsmath.com.br:3500)
 
+## How to use
+
+Click in **SIG-IN**
+
+![alt text](https://github.com/rodrigoms2004/FinanceMidTermSiraj2019master/documentation/img/1-main.png)
+
+
+
 ### Requirements
 
 Node version 10.15.0 or better
