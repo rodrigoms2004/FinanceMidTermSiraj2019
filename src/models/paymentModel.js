@@ -26,8 +26,10 @@ const paymentModel = {
       try {
         return firebase.firestore().collection('users').doc(userID).get().then(function (doc) {
             if (doc.exists) {
+                log("paymentModel", "info", `doc.exists is TRUE`)
                 return doc.data().totalCredit;
             }
+            log("paymentModel", "info", `There is no doc, returning zero`)
             return 0;
         });
       } catch (error) {

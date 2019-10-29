@@ -9,12 +9,15 @@ const paymentController = {
   credit: async (req, res,) => {
     try {
       const credit = await paymentModel.checkCredit(req.body.uid);
+      log("paymentController", "info", `Got the credit`)
 
       if (!credit){
+        log("paymentController", "info", `There is no credit`)
         return res.render('payment', {title: "ML Signal", api_key:`${STRIPE_KEY_PUB}`, 
            data_name: "ML Signal", val_1: 1000, val_2: 10000, val_3: 90000});
       }
       else{
+        log("paymentController", "info", `User has credit`)
         res.render('home', {title: 'ML Signal', credit: credit});
       }
     } catch(error) {
