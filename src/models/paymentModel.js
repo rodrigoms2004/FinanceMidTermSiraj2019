@@ -2,38 +2,25 @@ const { log } = require('../util/loggerTool')
 const { firebase } = require('../services/firebase-service');
 
 const paymentModel = {
-
-    authOn: async(username, password) => {
-        try {
-            //const express = require('express');
-            //const session = require('express-session');
-            //const bodyParser = require('body-parser');
-            //const path = require('path');
-            const dao = new database("./db/mydb.db")
-            const result = await dao.get("SELECT * FROM users WHERE login = ? and password = ?", [username, password])
-
-            if (result){
-                return {res: "OK"}
-            }
-            return {error: "error"}
-        } catch (error) {
-            log("paymentModel", "error", `Error message at authOn method ${error.message}`)
-            return { error: error.message }
-        }
-    },
-    
     checkCredit: async(userID) => {
       try {
-        return firebase.firestore().collection('users').doc(userID).get().then(function (doc) {
-            if (doc.exists) {
-                return doc.data().totalCredit;
-            }
-            return 0;
+        let collection = firebase.firestore().collection('users');
+        let document = collection.doc(userID);
+         
+          let credit = await document.get().then(function (doc) {	
+          if (doc.exists) {
+            return doc.data().totalCredit;
+          }
+          return 0;
+        }).catch(function (error){
+          log("paymentModel", "error", `Error message at checkCredit method ${error.message}`)
+          return 0;
         });
-      } catch (error) {
+        return credit;
+      } catch(error) {
         log("paymentModel", "error", `Error message at checkCredit method ${error.message}`)
-        return { error: error.message}
-        }
+        return 0;
+      };
     },
 
     addPayment: async(userID, charge, queries) => {

@@ -37,9 +37,9 @@ const paymentController = {
     try {
       stripe.customers.create({
         email: req.body.token.email,
-        card: req.body.token.id
+        source: req.body.token.id
       })
-      .then(customer =>
+      .then(customer => 
         stripe.charges.create({
           amount: req.body.charge.amount,
           description: req.body.charge.description,

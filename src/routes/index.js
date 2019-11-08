@@ -23,8 +23,11 @@ router.post("/v1/query", paymentController.query);
 
 router.get("/v1/chart", displayController.getDisplay);
 
+router.post("/v1/data", displayController.getData);
+
 // Test route
 router.get("/v2/chart", displayController.getDisplay);
+router.get("/v2/data", displayController.getData);
 
 // Test
 router.get('/test', (req, res) => {
