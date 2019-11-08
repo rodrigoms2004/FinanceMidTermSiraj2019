@@ -4,19 +4,14 @@ const { firebase } = require('../services/firebase-service');
 const paymentModel = {
     checkCredit: async(userID) => {
       try {
-        let collection = firebase.firestore().collection('users');
-        let document = collection.doc(userID);
-         
-          let credit = await document.get().then(function (doc) {	
-          if (doc.exists) {
-            return doc.data().totalCredit;
-          }
-          return 0;
-        }).catch(function (error){
-          log("paymentModel", "error", `Error message at checkCredit method ${error.message}`)
-          return 0;
+        return firebase.firestore().collection('users').doc(userID).get().then(function (doc) {
+            if (doc.exists) {
+                log("paymentModel", "info", `doc.exists is TRUE`)
+                return doc.data().totalCredit;
+            }
+            log("paymentModel", "info", `There is no doc, returning zero`)
+            return 0;
         });
-        return credit;
       } catch(error) {
         log("paymentModel", "error", `Error message at checkCredit method ${error.message}`)
         return 0;
